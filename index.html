@@ -1,93 +1,57 @@
-<div id="clock">
-  <h1 id="date-time"></h1>
-</div>
+<html> 
+<head>
+    <title>Greeting Message</title> 
+    <style>
+#lbl {
+    font-family: monospace;
+    font-size: xx-large;
+    color: #6C63FF;
+    padding: 5px;
+    border: 1px solid #ececec;
+    text-align: center;
+    line-height: 1.5;
+    height:85%
 
-html {
-  font-size: 62.5%; /*62.5% is equal to 10px in most browsers; to make it easier to calculate REM units.*/
+
 }
-body {
-  text-align: center;
-  font-family: monospace;
-  font-weight: 300;
-  font-size: 2.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #6c63ff;
-  height: 100vh;
+#date{
+    font-size:large;
 }
-#clock {
-  max-width: 600px;
+body{
+    background-color: aliceblue;
 }
+    </style>
+</head>
+<body>
+    <div id="lbl"></div>
+</body>
 
-/* for smaller screens below 700px */
-@media only screen and (max-width: 700px) {
-  body {
-    font-size: 1.8rem;
-  }
-}
+<script>
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
 
-/*for smaller screens below 300px*/
-@media only screen and (max-width: 300px) {
-  body {
-    font-size: 1.6rem;
-  }
-}
+    
+    var today = new Date();
+    var hrs = today.getHours();
+    var dayOfWeek = weekday[today.getDay()];
+    var date = dayOfWeek+" " + today.getDate() + "/" +(today.getMonth()+1) +'/'+today.getFullYear()  ;
 
-window.addEventListener("load", () => {
-  clock();
-  function clock() {
-    const today = new Date();
+    var greet;
 
-    // get time components
-    const hours = today.getHours();
-    const minutes = today.getMinutes();
-    const seconds = today.getSeconds();
+    if (hrs < 12)
+        greet = 'Good Morning Juan ';
+    else if (hrs >= 12 && hrs <= 17)
+        greet = 'Good Afternoon Juan ';
+    else if (hrs >= 17 && hrs <= 24)
+        greet = 'Good Evening Juan ';
 
-    //add '0' to hour, minute & second when they are less 10
-    const hour = hours < 10 ? "0" + hours : hours;
-    const minute = minutes < 10 ? "0" + minutes : minutes;
-    const second = seconds < 10 ? "0" + seconds : seconds;
-
-    //make clock a 12-hour time clock
-    const hourTime = hour > 12 ? hour - 12 : hour;
-
-    // if (hour === 0) {
-    //   hour = 12;
-    // }
-    //assigning 'am' or 'pm' to indicate time of the day
-    const ampm = hour < 12 ? "AM" : "PM";
-
-    // get date components
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    const day = today.getDate();
-
-    //declaring a list of all months in  a year
-    const monthList = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-
-    //get current date and time
-    const date = monthList[month] + " " + day + ", " + year;
-    const time = hourTime + ":" + minute + ":" + second + ampm;
-
-    //combine current date and time
-    const dateTime = date + " - " + time;
-
-    //print current date and time to the DOM
-    document.getElementById("date-time").innerHTML = dateTime;
-    setTimeout(clock, 1000);
-  }
-});
+    document.getElementById('lbl').innerHTML =
+        greet+=`<div id="date"> It's ${date}</div>`;
+</script> 
+</html>
