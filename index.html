@@ -16,8 +16,6 @@
 }
 #date{
     font-size:large;
-#clock {
-    font-size: large;
 }
 body{
     background-color: aliceblue;
@@ -56,16 +54,25 @@ body{
     document.getElementById('lbl').innerHTML =
         greet+=`<div id="date"> It's ${date}</div>`;
     
-    function clock() {
-var today = new Date();
-var hour = zeros(twelveHour(today.getHours()));
-var minutes = zeros(today.getMinutes());
-var seconds = zeros(today.getSeconds());
-if(today.getHours() >=12){
-    seconds+=" pm"
+    var clock = document.createElement('div');
+clock.innerHTML = '00:00:00';
+document.body.appendChild(clock);
+function updateClock() {
+  var now = new Date();
+  var hours = now.getHours();
+  var minutes = now.getMinutes();
+  var seconds = now.getSeconds();
+  if (hours < 10) {
+    hours = '0' + hours;
+  }
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+  clock.innerHTML = hours + ':' + minutes + ':' + seconds;
 }
-else{
-    seconds+=" am"
-}
+setInterval(updateClock, 1000);
 </script> 
 </html>
